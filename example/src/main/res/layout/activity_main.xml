@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <SurfaceView
+        android:id="@+id/sv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#80303030"
+        android:padding="15dp"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        tools:text="扫码：结果：\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" />
+
+    <Button
+        android:id="@+id/btn_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_margin="10dp"
+        android:background="#80303030"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:text="开始扫码"
+        android:textColor="#f0f0f0"
+        android:textSize="15sp" />
+
+</FrameLayout>
