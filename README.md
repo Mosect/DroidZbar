@@ -1,9 +1,27 @@
+# Zbar
+相关Zbar，请查看：http://zbar.sourceforge.net
+
 # DroidZbar
 基于zbar库实现的Android平台扫码功能。提供了以下4个类：
 * DataHandler 数据处理，扫描图像数据，触发回调，内部有自身线程管理。
 * Scanner 扫描器，提供开始、结束操作，以及扫描回调。使用DataHandler实现扫码功能。
 * ScanCallback 扫描回调，Scanner的回调类。
 * ScanHandler 扫描处理，封装了Scanner的使用，将Scanner与Camera、SurfaceHolder连接起来。
+
+## 使用
+### Gradle
+```
+compile 'com.mosect:DroidZbar:1.0.0'
+```
+### Maven
+```
+<dependency>
+  <groupId>com.mosect</groupId>
+  <artifactId>DroidZbar</artifactId>
+  <version>1.0.0</version>
+  <type>pom</type>
+</dependency>
+```
 
 ## DataHandler
 扫码数据处理，创建需要提供宽、高和图像格式。一般，安卓默认的相机预览图像格式是"Y800"，如需了解更多格式，可以查询以下文章：
