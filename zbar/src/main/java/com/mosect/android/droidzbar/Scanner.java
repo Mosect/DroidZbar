@@ -9,11 +9,9 @@ import java.io.Closeable;
  */
 public class Scanner implements Closeable {
 
-    private boolean scanning;
     private ScanCallback scanCallback;
     private Handler handler;
     private DataHandler dataHandler;
-
 
     /**
      * 创建扫描器
@@ -23,13 +21,27 @@ public class Scanner implements Closeable {
      * @param format 格式
      */
     public Scanner(int width, int height, String format) {
+        this(width, height, format, null);
+    }
+
+    /**
+     * 创建扫描器
+     *
+     * @param width  宽
+     * @param height 高
+     * @param format 格式
+     */
+    public Scanner(int width, int height, String format, int[] crop) {
         this.handler = new Handler();
         this.dataHandler = new DataHandler(width, height, format) {
             @Override
-            void onScanResult(Object result) {
+            protected void onScanResult(Object result) {
                 notifyResult(result);
             }
         };
+        if (null != crop && crop.length == 4) {
+            this.dataHandler.getImage().setCrop(crop[0], crop[1], crop[2], crop[3]);
+        }
     }
 
     public ScanCallback getScanCallback() {
@@ -42,26 +54,26 @@ public class Scanner implements Closeable {
 
     public void start() {
         if (!isScanning()) {
-            scanning = true;
+            dataHandler.startLoop();
             notifyStart();
         }
     }
 
     public void stop() {
         if (isScanning()) {
-            scanning = false;
+            dataHandler.stopLoop();
             notifyCancel();
         }
     }
 
     public boolean isScanning() {
-        return scanning;
+        return dataHandler.isRunning();
     }
 
     @Override
     public void close() {
         if (null != dataHandler) {
-            dataHandler.destroy();
+            dataHandler.close();
             dataHandler = null;
         }
     }
