@@ -1,10 +1,16 @@
 package com.mosect.android.droidzbar.example;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
@@ -78,6 +84,38 @@ public class MainActivity extends AppCompatActivity implements ScanCallback {
             }
         };
         svContent.getHolder().addCallback(scanHandler);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            String camera = Manifest.permission.CAMERA;
+            int value = ContextCompat.checkSelfPermission(this, camera);
+            if (value == PackageManager.PERMISSION_GRANTED) {
+                // 获得权限
+                svContent.setVisibility(View.VISIBLE);
+            } else {
+                // 没有权限，请求权限
+                requestPermissions(new String[]{camera}, 0x100);
+            }
+        } else {
+            // 低版本
+            svContent.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0x100) {
+            String camera = Manifest.permission.CAMERA;
+            for (int i = 0; i < permissions.length; i++) {
+                String per = permissions[i];
+                if (TextUtils.equals(camera, per)) {
+                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                        // 获得权限
+                        svContent.setVisibility(View.VISIBLE);
+                    }
+                    break;
+                }
+            }
+        }
     }
 
     @Override

@@ -11,17 +11,13 @@
 ## 使用
 ### Gradle
 ```
-compile 'com.mosect:DroidZbar:1.0.0'
+compile 'com.mosect:DroidZbar:1.0.1'
 ```
-### Maven
-```
-<dependency>
-  <groupId>com.mosect</groupId>
-  <artifactId>DroidZbar</artifactId>
-  <version>1.0.0</version>
-  <type>pom</type>
-</dependency>
-```
+## 更新记录
+### 1.0.1
+* 修复扫码卡顿问题，优化扫码速度
+### 1.0.0
+* 存在扫码卡顿问题，请勿使用此版本
 
 ## DataHandler
 扫码数据处理，创建需要提供宽、高和图像格式。一般，安卓默认的相机预览图像格式是"Y800"，如需了解更多格式，可以查询以下文章：
